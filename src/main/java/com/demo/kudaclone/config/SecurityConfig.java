@@ -43,7 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/**").authenticated();
         http.exceptionHandling()
                 .accessDeniedPage("/error");
-//        http.httpBasic();
         http.apply(tokenFilterConfigurer());
     }
 

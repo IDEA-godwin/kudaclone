@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 @Component
 public class TokenProvider {
 
     private final Key key = Keys.hmacShaKeyFor("pass1234#%AS_manHunter$$@@policeRaid".getBytes(StandardCharsets.UTF_8));
-    private final Date validPeriod = new Date(new Date().getTime() + 100000);
+    private final Date validPeriod = new Date(new Date().getTime() + (1000*60*60));
     private final JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
 
 
@@ -31,7 +32,7 @@ public class TokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claim = jwtParser.parseClaimsJwt(token).getBody();
+        Claims claim = jwtParser.parseClaimsJws(token).getBody();
 
         User principal = new User(claim.getSubject(), "", new ArrayList<>());
         return new UsernamePasswordAuthenticationToken(principal, token, new ArrayList<>());
@@ -39,11 +40,9 @@ public class TokenProvider {
 
     public boolean validateToken(String authToken) {
         try {
-            System.out.println("start");
-            jwtParser.parseClaimsJwt(authToken);
+            jwtParser.parseClaimsJws(authToken);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            System.out.println("fail");
             return false;
         }
     }

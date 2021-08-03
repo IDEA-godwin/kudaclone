@@ -25,9 +25,7 @@ public class TokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String jwt = resolveToken(req);
-        System.out.println("here 1");
         if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
-            System.out.println("here");
             Authentication authentication = this.tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

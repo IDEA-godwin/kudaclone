@@ -2,6 +2,10 @@ package com.demo.kudaclone.resources;
 
 import com.demo.kudaclone.DTO.LoginReq;
 import com.demo.kudaclone.security.TokenProvider;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +33,13 @@ public class Authenticate {
     }
 
     @PostMapping("/login")
+    @ApiOperation("Login User")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "registration successful"),
+            @ApiResponse(code = 400, message = "bad request: request parameter error"),
+            @ApiResponse(code = 500, message = "internal error")
+    })
+    @ApiParam(name = "login details")
     public ResponseEntity<?> authenticate(@RequestBody LoginReq loginReq) {
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
