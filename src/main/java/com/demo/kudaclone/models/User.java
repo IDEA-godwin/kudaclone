@@ -32,11 +32,6 @@ public class User {
     private String email;
 
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(length = 50, unique = true, nullable = false)
-    private String login;
-
-    @NotNull
     @Size(max = 60)
     @Column(name = "password_hash", length = 60, nullable = false)
     private String password;
@@ -49,40 +44,25 @@ public class User {
 //    @Column(name = "image_url", length = 256)
 //    private String imageUrl;
 
+    @Column(name = "created_date")
+    @JsonIgnore
+    private Instant createDate = null;
+
     @Size(max = 20)
     @Column(name = "activation_key", length = 20)
-    @JsonIgnore
     private String activationKey;
 
     @Size(max = 20)
     @Column(name = "reset_key", length = 20)
-    @JsonIgnore
     private String resetKey;
 
     @Column(name = "reset_date")
     private Instant resetDate = null;
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof User)) {
-            return false;
-        }
-        return id != null && id.equals(((User) o).id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
     
     @Override
     public String toString() {
         return String.format(
-                "name: %s, \t email: %s,\nlogin: %s, \t password: %s",
-                this.name, this.email, this.login, this.password);
+                "name: %s, \t email: %s, \n password: %s",
+                this.name, this.email, this.password);
     }
 }

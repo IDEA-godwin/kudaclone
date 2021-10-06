@@ -1,14 +1,14 @@
 
 spring:
-  datasource:
-    url: jdbc:postgres://ec2-34-197-105-186.compute-1.amazonaws.com:5432/d13rf2d7qv0rlq
-    username: tmdentbrrydzbl
-    password: a0f0390f9b8f081478c8018edac97bd7b6f9617d8a5d0752d917bcfd06cb1101
+#  datasource:
+#    url: jdbc:postgres://ec2-34-197-105-186.compute-1.amazonaws.com:5432/d13rf2d7qv0rlq
+#    username: tmdentbrrydzbl
+#    password: a0f0390f9b8f081478c8018edac97bd7b6f9617d8a5d0752d917bcfd06cb1101
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-    hibernate.ddl-auto: update
-#  profiles:
-#    active: prod
+    hibernate.ddl-auto: create-drop
+  profiles:
+    active: dev
   liquibase:
     enabled: false
     change-log: classpath:/db/master.xml

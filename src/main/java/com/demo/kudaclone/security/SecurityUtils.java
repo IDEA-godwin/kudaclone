@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class SecurityUtils {
 
@@ -25,4 +26,18 @@ public class SecurityUtils {
         }
         return null;
     }
+
+    public static String generateActivationKey() {
+        StringBuilder key = new StringBuilder();
+        Random random = new Random();
+        String pi = Double.toString(Math.PI);
+        for (int i = 0; i < 6; i++) {
+            int randomInt = random.nextInt(pi.length());
+            if(Character.toString(pi.charAt(randomInt)).equals("."))
+                key.append(random.nextInt());
+            key.append(pi.charAt(randomInt));
+        }
+        return key.toString();
+    }
+
 }
